@@ -1,4 +1,5 @@
 import 'package:dicodingproject_restaurantapp/restaurant.dart';
+import 'package:dicodingproject_restaurantapp/resto_details.dart';
 import 'package:flutter/material.dart';
 
 class RestoList extends StatelessWidget {
@@ -9,17 +10,16 @@ class RestoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+        backgroundColor: Colors.white,
         appBar: appBarAdjustment,
         body: bodyAdjustment(context));
   }
 
   // Components Detail
   // I tried to split them up from build, i thought this is the way to make it looks clean
-
   final appBarAdjustment = AppBar(
     title: const Text('Restaurant App'),
-    backgroundColor: const Color.fromRGBO(58, 66, 86, 1.0),
+    backgroundColor: Colors.black87.withOpacity(0.9),
     elevation: 0.1,
     actions: <Widget>[
       IconButton(
@@ -51,19 +51,23 @@ class RestoList extends StatelessWidget {
       elevation: 1.0,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Container(
-        decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-        child: tilingItemAdjustment(resto),
+        decoration: BoxDecoration(
+          color: Colors.grey.withOpacity(0.4),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: tilingItemAdjustment(context, resto),
       ),
     );
   }
 
-  ListTile tilingItemAdjustment(Restaurant resto) => ListTile(
+  ListTile tilingItemAdjustment(BuildContext context, Restaurant resto) =>
+      ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         leading: Container(
           padding: const EdgeInsets.only(right: 12),
           decoration: const BoxDecoration(
               border:
-                  Border(right: BorderSide(width: 1.0, color: Colors.white24))),
+                  Border(right: BorderSide(width: 2.4, color: Colors.black26))),
           child: Image.network(
             resto.pictureId,
             width: 85,
@@ -72,23 +76,19 @@ class RestoList extends StatelessWidget {
             ),
           ),
         ),
-        title: Row(
-          children: [
-            Text(
-              resto.name,
-              style: const TextStyle(
-                  color: Colors.white70, fontWeight: FontWeight.bold),
-            ),
-          ],
+        title: Text(
+          resto.name,
+          style: const TextStyle(
+              color: Colors.black87, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Row(
               children: [
                 const Icon(
                   Icons.location_on,
-                  color: Colors.white54,
+                  color: Colors.black45,
                   size: 15,
                 ),
                 const SizedBox(
@@ -96,7 +96,7 @@ class RestoList extends StatelessWidget {
                 ),
                 Text(
                   resto.city,
-                  style: const TextStyle(color: Colors.white38),
+                  style: const TextStyle(color: Colors.black45),
                 )
               ],
             ),
@@ -104,7 +104,7 @@ class RestoList extends StatelessWidget {
               children: [
                 const Icon(
                   Icons.star,
-                  color: Colors.white54,
+                  color: Colors.black45,
                   size: 15,
                 ),
                 const SizedBox(
@@ -112,7 +112,9 @@ class RestoList extends StatelessWidget {
                 ),
                 Text(
                   (resto.rating).toString(),
-                  style: const TextStyle(color: Colors.white38),
+                  style: const TextStyle(
+                    color: Colors.black45,
+                  ),
                 ),
               ],
             ),
@@ -120,9 +122,15 @@ class RestoList extends StatelessWidget {
         ),
         trailing: const Icon(
           Icons.keyboard_arrow_right,
-          color: Colors.white,
+          color: Colors.black26,
           size: 30,
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            DetailPage.routeName,
+            arguments: resto,
+          );
+        },
       );
 }

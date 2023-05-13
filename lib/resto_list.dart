@@ -11,13 +11,13 @@ class RestoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBarAdjustment,
+        appBar: _appBarAdjustment,
         body: bodyAdjustment(context));
   }
 
   // Components Detail
   // I tried to split them up from build, i thought this is the way to make it looks clean
-  final appBarAdjustment = AppBar(
+  final _appBarAdjustment = AppBar(
     title: const Text('Restaurant App'),
     backgroundColor: Colors.black87.withOpacity(0.9),
     elevation: 0.1,
@@ -48,7 +48,6 @@ class RestoList extends StatelessWidget {
   // Tiling
   Widget _buildItem(BuildContext context, Restaurant resto) {
     return Card(
-      elevation: 1.0,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       child: Container(
         decoration: BoxDecoration(

@@ -8,7 +8,7 @@ class DetailPage extends StatefulWidget {
   static const routeName = "/detail_page";
   final Restaurant resto;
 
-  const DetailPage({Key? key, required this.resto}) : super(key: key);
+  const DetailPage({super.key, required this.resto});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -20,22 +20,20 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   int selectedDrinkIndex = -1;
 
   Restaurant? _resto;
+  TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
-
-    setState(() {
-      _resto = widget.resto;
-    });
+    _resto = widget.resto;
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 2, vsync: this);
     return SafeArea(
       child: Scaffold(
-        body: Container(
+        body: SizedBox(
           width: double.maxFinite,
           height: double.maxFinite,
           child: Stack(
@@ -241,7 +239,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: double.maxFinite,
                           height: 180,
                           child: TabBarView(
@@ -327,27 +325,29 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
+                        SizedBox(
                           width: double.maxFinite,
                           height: 70,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ButtonReusable.icon(
+                              ButtonReusable.withIcon(
                                 backgroundColor: Colors.grey.withOpacity(0.4),
                                 height: 50,
                                 itemSize: 20,
                                 width: 70,
                                 borderColor: Colors.black,
                                 icon: Icons.favorite_border,
+                                itemColor: Colors.black,
                               ),
-                              ButtonReusable.text(
+                              ButtonReusable.withText(
                                 text: "Order now",
                                 height: 50,
                                 width: 290,
                                 itemSize: 20,
                                 backgroundColor: Colors.grey.withOpacity(0.4),
                                 borderColor: Colors.black,
+                                itemColor: Colors.black,
                               )
                             ],
                           ),
@@ -362,5 +362,11 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController!.dispose();
+    super.dispose();
   }
 }

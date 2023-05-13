@@ -4,9 +4,7 @@ List<Restaurant> restaurantFromJson(String str) =>
     List<Restaurant>.from(json.decode(str).map((x) => Restaurant.fromJson(x)));
 
 List<Restaurant> parseResto(String? json) {
-  if (json == null) {
-    return [];
-  }
+  if (json == null) return [];
 
   final List parsed = jsonDecode(json);
   return parsed.map((json) => Restaurant.fromJson(json)).toList();

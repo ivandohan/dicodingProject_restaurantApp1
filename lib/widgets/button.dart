@@ -6,39 +6,35 @@ class ButtonReusable extends StatelessWidget {
   final double width;
   final double height;
   final double itemSize;
-  String? text;
-  IconData? icon;
-  Color? itemColor;
 
-  ButtonReusable(
-      {Key? key,
-      required this.backgroundColor,
-      required this.height,
-      required this.itemSize,
-      required this.width,
-      required this.borderColor})
-      : super(key: key);
-
-  ButtonReusable.icon(
-      {Key? key,
-      this.icon,
-      required this.backgroundColor,
-      required this.height,
-      required this.width,
-      required this.itemSize,
-      required this.borderColor})
-      : super(key: key);
-
-  ButtonReusable.text({
-    Key? key,
-    required this.text,
-    this.itemColor,
-    required this.height,
-    required this.width,
-    required this.itemSize,
+  const ButtonReusable({
+    super.key,
     required this.backgroundColor,
+    required this.height,
+    required this.itemSize,
+    required this.width,
     required this.borderColor,
-  }) : super(key: key);
+  });
+
+  const factory ButtonReusable.withText({
+    required Color backgroundColor,
+    required Color borderColor,
+    required double width,
+    required double height,
+    required double itemSize,
+    required String text,
+    required Color itemColor,
+  }) = _ButtonWithText;
+
+  const factory ButtonReusable.withIcon({
+    required Color backgroundColor,
+    required Color borderColor,
+    required double width,
+    required double height,
+    required double itemSize,
+    required IconData icon,
+    required Color itemColor,
+  }) = _ButtonWithIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -53,22 +49,62 @@ class ButtonReusable extends StatelessWidget {
           width: 1.0,
         ),
       ),
-      child: icon == null
-          ? Center(
-              child: Text(
-                text!,
-                style: TextStyle(
-                  fontSize: itemSize,
-                  color: itemColor,
-                ),
-              ),
-            )
-          : Center(
-              child: Icon(
-              icon,
-              color: itemColor,
-              size: itemSize,
-            )),
+    );
+  }
+}
+
+class _ButtonWithText extends ButtonReusable {
+  final String text;
+  final Color itemColor;
+
+  const _ButtonWithText({
+    required super.backgroundColor,
+    required super.borderColor,
+    required super.width,
+    required super.height,
+    required super.itemSize,
+    required this.text,
+    required this.itemColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        super.build(context),
+        Text(
+          text,
+          style: TextStyle(color: itemColor),
+        ),
+      ],
+    );
+  }
+}
+
+class _ButtonWithIcon extends ButtonReusable {
+  final IconData icon;
+  final Color itemColor;
+
+  const _ButtonWithIcon({
+    required super.backgroundColor,
+    required super.borderColor,
+    required super.width,
+    required super.height,
+    required super.itemSize,
+    required this.icon,
+    required this.itemColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        super.build(context),
+        Icon(
+          icon,
+          color: itemColor,
+        ),
+      ],
     );
   }
 }

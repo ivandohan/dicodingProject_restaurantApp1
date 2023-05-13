@@ -4,10 +4,9 @@ class UsableMenus extends StatelessWidget {
   final String menus;
   bool? isSelected;
 
-  UsableMenus({Key? key, required this.menus}) : super(key: key);
+  UsableMenus({super.key, required this.menus});
   UsableMenus.selection(
-      {Key? key, required this.menus, required this.isSelected})
-      : super(key: key);
+      {super.key, required this.menus, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {

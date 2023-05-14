@@ -101,6 +101,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                     ),
                   ),
                   child: SingleChildScrollView(
+                    primary: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
